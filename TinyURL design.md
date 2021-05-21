@@ -69,7 +69,9 @@ If you haven’t used [tinyurl.com](http://tinyurl.com/) before, please try crea
 
 Our system will be read-heavy. There will be lots of redirection requests compared to new URL shortenings. Let’s assume a 100:1 ratio between read and write.
 
-**Traffic estimates:** Assuming, we will have 500M new URL shortenings per month, with 100:1 read/write ratio, we can expect 50B redirections during the same period:
+### **Traffic estimates:**
+
+Assuming, we will have 500M new URL shortenings per month, with 100:1 read/write ratio, we can expect 50B redirections during the same period:
 
 100 * 500M => 50B
 
@@ -81,7 +83,9 @@ Considering 100:1 read/write ratio, URLs redirections per second will be:
 
 100 * 200 URLs/s = 20K/s
 
-**Storage estimates:** Let’s assume we store every URL shortening request (and associated shortened link) for 5 years. Since we expect to have 500M new URLs every month, the total number of objects we expect to store will be 30 billion:
+### **Storage estimates:**
+
+ Let’s assume we store every URL shortening request (and associated shortened link) for 5 years. Since we expect to have 500M new URLs every month, the total number of objects we expect to store will be 30 billion:
 
 500 million * 5 years * 12 months = 30 billionLet’s assume that each stored object will be approximately 500 bytes (just a ballpark estimate–we will dig into it later). We will need 15TB of total storage:
 
@@ -95,7 +99,9 @@ Considering 100:1 read/write ratio, URLs redirections per second will be:
 
 20K * 500 bytes = ~10 MB/s
 
-**Memory estimates:** If we want to cache some of the hot URLs that are frequently accessed, how much memory will we need to store them? If we follow the 80-20 rule, meaning 20% of URLs generate 80% of traffic, we would like to cache these 20% hot URLs.
+### **Memory estimates:**
+
+If we want to cache some of the hot URLs that are frequently accessed, how much memory will we need to store them? If we follow the 80-20 rule, meaning 20% of URLs generate 80% of traffic, we would like to cache these 20% hot URLs.
 
 Since we have 20K requests per second, we will be getting 1.7 billion requests per day:
 
@@ -107,7 +113,9 @@ To cache 20% of these requests, we will need 170GB of memory.
 
 One thing to note here is that since there will be many duplicate requests (of the same URL), our actual memory usage will be less than 170GB.
 
-**High-level estimates:** Assuming 500 million new URLs per month and 100:1 read:write ratio, following is the summary of the high level estimates for our service:
+### **High-level estimates:**
+
+Assuming 500 million new URLs per month and 100:1 read:write ratio, following is the summary of the high level estimates for our service:
 
 
 | New URLs | 200/s |
@@ -121,6 +129,10 @@ One thing to note here is that since there will be many duplicate requests (of t
 ## 4. System APIs
 
 💡      Once we've finalized the requirements, it's always a good idea to define the system APIs. This should explicitly state what is expected from the system.We can have SOAP or REST APIs to expose the functionality of our service. Following could be the definitions of the APIs for creating and deleting URLs:
+
+```
+
+```
 
 ```
 createURL(api_dev_key, original_url, custom_alias=None, user_name=None, expire_date=None)
@@ -152,7 +164,7 @@ Where “url_key” is a string representing the shortened URL to be retrieved; 
 2. There are no relationships between records—other than storing which user created a URL.
 3. Our service is read-heavy.
 
-### Database Schema: [#](https://www.educative.io/courses/grokking-the-system-design-interview/m2ygV4E81AR#database-schema)
+### Database Schema: 
 
 We would need two tables: one for storing information about the URL mappings and one for the user’s data who created the short link.
 
@@ -164,7 +176,7 @@ The problem we are solving here is how to generate a short and unique key for a 
 
 In the TinyURL example in Section 1, the shortened URL is “[http://tinyurl.com/jlg8zpc”](http://tinyurl.com/jlg8zpc%E2%80%9D). The last seven characters of this URL is the short key we want to generate. We’ll explore two solutions here:
 
-## a. Encoding actual URL [#](https://www.educative.io/courses/grokking-the-system-design-interview/m2ygV4E81AR#a-encoding-actual-url)
+## a. Encoding actual URL
 
 We can compute a unique hash (e.g., [MD5](https://en.wikipedia.org/wiki/MD5) or [SHA256](https://en.wikipedia.org/wiki/SHA-2), etc.) of the given URL. The hash can then be encoded for display. This encoding could be base36 ([a-z ,0-9]) or base62 ([A-Z, a-z, 0-9]) and if we add ‘+’ and ‘/’ we can use [Base64](https://en.wikipedia.org/wiki/Base64#Base64_table) encoding. A reasonable question would be, what should be the length of the short key? 6, 8, or 10 characters?
 
