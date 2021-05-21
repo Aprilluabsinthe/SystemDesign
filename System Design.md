@@ -1,15 +1,15 @@
-# System Design Interviews: A step by step guide
+> # System Design Interviews: A step by step guide
 
 <details open="" class="styles__PageTOCStyled-sc-1u9xzlw-0 kyKPAD"><summary role="button" tabindex="0" class="styles__HeadingWrap-sc-1u9xzlw-1 bJONCf"><div class="styles__HeadingWrapInner-sc-1u9xzlw-2 lazzRz"><span class="text-base font-bold tracking-wide">We'll cover the following</span><button class="icon-default ml-auto rounded-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg></button></div></summary>
 
-* * [Step 1: Requirements clarifications](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-1-requirements-clarificationsdiv)
-  * [Step 2: Back-of-the-envelope estimation](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-2-back-of-the-envelope-estimationdiv)
-  * [Step 3: System interface definition](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-3-system-interface-definitiondiv)
-  * [Step 4: Defining data model](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-4-defining-data-modeldiv)
-  * [Step 5: High-level design](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-5-high-level-designdiv)
-* * [Step 6: Detailed design](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-6-detailed-designdiv)
-  * [Step 7: Identifying and resolving bottlenecks](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-7-identifying-and-resolving-bottlenecksdiv)
-  * [Summary](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5pxsummarydiv)
+* * Step 1: Requirements clarifications
+  * Step 2: Back-of-the-envelope estimation
+  * Step 3: System interface definition
+  * Step 4: Defining data model
+  * Step 5: High-level design
+* * Step 6: Detailed design
+  * Step 7: Identifying and resolving bottlenecks
+  * Summary
 
 </details>
 
@@ -24,8 +24,6 @@ Like coding interviews, candidates who haven’t put a deliberate effort to prep
 In this course, we’ll follow a step by step approach to solve multiple design problems. First, let’s go through these steps:
 
 ## Step 1: Requirements clarifications
-
-[#](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-1-requirements-clarificationsdiv)
 
 It is always a good idea to ask questions about the exact scope of the problem we are trying to solve. Design questions are mostly open-ended, and they don’t have ONE correct answer. That’s why clarifying ambiguities early in the interview becomes critical. Candidates who spend enough time to define the end goals of the system always have a better chance to be successful in the interview. Also, since we only have 35-40 minutes to design a (supposedly) large system, we should clarify what parts of the system we will be focusing on.
 
@@ -43,8 +41,6 @@ All such questions will determine how our end design will look like.
 
 ## Step 2: Back-of-the-envelope estimation
 
-[#](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-2-back-of-the-envelope-estimationdiv)
-
 It is always a good idea to estimate the scale of the system we’re going to design. This will also help later when we focus on scaling, partitioning, load balancing, and caching.
 
 * What scale is expected from the system (e.g., number of new tweets, number of tweet views, number of timeline generations per sec., etc.)?
@@ -52,8 +48,6 @@ It is always a good idea to estimate the scale of the system we’re going to de
 * What network bandwidth usage are we expecting? This will be crucial in deciding how we will manage traffic and balance load between servers.
 
 ## Step 3: System interface definition
-
-[#](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-3-system-interface-definitiondiv)
 
 Define what APIs are expected from the system. This will establish the exact contract expected from the system and ensure if we haven’t gotten any requirements wrong. Some examples of APIs for our Twitter-like service will be:
 
@@ -71,8 +65,6 @@ markTweetFavorite(user_id, tweet_id, timestamp, …)  
 
 ## Step 4: Defining data model
 
-[#](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-4-defining-data-modeldiv)
-
 Defining the data model in the early part of the interview will clarify how data will flow between different system components. Later, it will guide for data partitioning and management. The candidate should identify various system entities, how they will interact with each other, and different aspects of data management like storage, transportation, encryption, etc. Here are some entities for our Twitter-like service:
 
 **User:** UserID, Name, Email, DoB, CreationDate, LastLogin, etc.
@@ -84,16 +76,12 @@ Which database system should we use? Will NoSQL like [Cassandra](https://en.wiki
 
 ## Step 5: High-level design
 
-[#](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-5-high-level-designdiv)
-
 Draw a block diagram with 5-6 boxes representing the core components of our system. We should identify enough components that are needed to solve the actual problem from end to end.
 
 For Twitter, at a high level, we will need multiple application servers to serve all the read/write requests with load balancers in front of them for traffic distributions. If we’re assuming that we will have a lot more read traffic (compared to write), we can decide to have separate servers to handle these scenarios. On the back-end, we need an efficient database that can store all the tweets and support a large number of reads. We will also need a distributed file storage system for storing photos and videos.
 
 
 ## Step 6: Detailed design
-
-[#](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-6-detailed-designdiv)
 
 Dig deeper into two or three major components; the interviewer’s feedback should always guide us to what parts of the system need further discussion. We should present different approaches, their pros and cons, and explain why we will prefer one approach over the other. Remember, there is no single answer; the only important thing is to consider tradeoffs between different options while keeping system constraints in mind.
 
@@ -105,8 +93,6 @@ Dig deeper into two or three major components; the interviewer’s feedback shou
 
 ## Step 7: Identifying and resolving bottlenecks
 
-[#](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px-step-7-identifying-and-resolving-bottlenecksdiv)
-
 Try to discuss as many bottlenecks as possible and different approaches to mitigate them.
 
 * Is there any single point of failure in our system? What are we doing to mitigate it?
@@ -115,8 +101,6 @@ Try to discuss as many bottlenecks as possible and different approaches to mitig
 * How are we monitoring the performance of our service? Do we get alerts whenever critical components fail or their performance degrades?
 
 ## Summary
-
-[#](https://www.educative.io/courses/grokking-the-system-design-interview/B8nMkqBWONo#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5pxsummarydiv)
 
 In short, preparation and being organized during the interview are the keys to success in system design interviews. The steps mentioned above should guide you to remain on track and cover all the different aspects while designing a system.
 
